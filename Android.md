@@ -1,82 +1,4 @@
 
-Embed VRPlayer to activity
- 
-1.    Add fragment to activity layout xml file
- 
-<fragment
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:name="com.omnivirt.vrkit.VRPlayerFragment"
-	android:id="@+id/vrplayer_fragment" />
- 
- 
-2.    Import vrkit into your code
- 
-import com.omnivirt.vrkit.*;
-3.    Add the following snippet to activity code
- 
-VRPlayerFragment  player = (VRPlayerFragment)this.getFragmentManager().findFragmentById(R.id.vrplayer_fragment);
-player.load(CONTENT_ID);
-player.setCardboard(CARDBOARD_MODE);
- 
-4.    Implement interface OnVRPlayerInteractionListener and add the following functions:
- 
-void onFragmentCreated();
-void onLoaded(Integer maximumQuality, Quality currentQuality, Mode cardboardMode);
-void onStarted();
-void onPaused();
-void onEnded();
-void onSkipped();
-void onDurationChanged(Double value);
-void onProgressChanged(Double value);
-void onBufferChanged(Double value);
-void onSeekChanged(Double value);
-void onCardboardChanged(Mode value);
-void onAudioChanged(Double value);
-void onQualityChanged(Quality value);
-void onExpanded();
-void onCollapsed();
-void onLatitudeChanged(Double value);
-void onLongitudeChanged(Double value);
-void onSwitched(String sceneName, Array history);
- 
- 
-Open VR Ad
- 
-1.    Import vrkit into your code
- 
-import com.omnivirt.vrkit.*;
- 
-2.    Use the following code to load VRAd
- 
-VRAd  vrAd = new VRAd(ADSPACE_ID, ACTIVITY);
-vrAd.load();
- 
-3.    Implement OnVRAdInteractionListener interface and add the following functions
- 
-void onAdStatusChanged(VRAd instance, AdState status);
- 
-4.    To start VRAd wait for status to change to “Ready” and call the following:
- 
-vrAd.show(CARDBOARD_MODE);
-        	
- 
-Scan QR Code
- 
-1.    Add the following to app build.gradle
- 
-compile 'com.google.android.gms:play-services:7.8.0'
- 
-2.    Import vrkit into your code
- 
-import com.omnivirt.vrkit.*;
- 
-3.    Call the following function to open QR Code scanner
- 
-QRReaderFragment.launchCardboardQRScanner(ACTIVITY);
- 
- 
-
 
 # VR Player and Monetization for App Developers
 
@@ -165,60 +87,89 @@ void onSwitched(String sceneName, Array history);
 </pre>
 
 
-### Add an Ad Space programmatically
-To add an Ad Space in your app, create a new instance of the VRAd object to your view controller.
-   <pre>
-   let myAd = VRAd.create(withAdSpaceID: 1000, andViewController: self, andListener: self) //replace 1000 with your Ad Space ID
-   </pre>
-To load an ad from the network for you Ad Space call the load method
-   <pre>
-   myAd.load()
-   </pre>
-You can listen to the ad state to check when the ad is ready to display
-   <pre>
-   func adStatusChanged(withAd ad: VRAd, andStatus status: AdState) {
-     switch (status) {
-       case AdState.NONE:
-         break;
-       case AdState.LOADING:
-         ...
-       case AdState.READY:
-         // Set the button into ready status. So, we can launch the ad space.
-         startAdButton.setTitle("Start Ad", for: UIControlState.normal);
-         ...
-       case AdState.SHOWING:
-         ...
-       case AdState.COMPLETED:
-         ...
-       case AdState.FAILED:
-         ...
-     }
-   }
-   </pre>
-Once the ad is ready to display you can call the show method on the ad.
-    <pre>
-	myAd.show(withCardboardMode: Mode.OFF)
-   </pre>
-   
-### Use Storyboard to add a VRPlayer
+### Embed a VRPlayer into an activity
+ 
+1.    Add this fragment to your activity layout xml file
+<pre>
+<fragment
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:name="com.omnivirt.vrkit.VRPlayerFragment"
+	android:id="@+id/vrplayer_fragment" />
+</pre>
+ 
+2.    Import vrkit into your code
+<pre>
+import com.omnivirt.vrkit.*;
+</pre>
 
-This tutorial shows you how to make fullscreen cardboard app within minutes.
+3.    Add the following snippet to your activity 
+<pre>
+VRPlayerFragment  player = (VRPlayerFragment)this.getFragmentManager().findFragmentById(R.id.vrplayer_fragment);
+player.load(CONTENT_ID);
+player.setCardboard(CARDBOARD_MODE);
+</pre>
+ 
+4.    Implement the interface OnVRPlayerInteractionListener and add the following functions:
+<pre>
+void onFragmentCreated();
+void onLoaded(Integer maximumQuality, Quality currentQuality, Mode cardboardMode);
+void onStarted();
+void onPaused();
+void onEnded();
+void onSkipped();
+void onDurationChanged(Double value);
+void onProgressChanged(Double value);
+void onBufferChanged(Double value);
+void onSeekChanged(Double value);
+void onCardboardChanged(Mode value);
+void onAudioChanged(Double value);
+void onQualityChanged(Quality value);
+void onExpanded();
+void onCollapsed();
+void onLatitudeChanged(Double value);
+void onLongitudeChanged(Double value);
+void onSwitched(String sceneName, Array history);
+</pre>
 
-Inside the ViewController of the sample app you will find the Player view, which subclasses VRPlayer. **If you plan to use VRPlayer in both landscape and portrait orientation, please make sure to set your controller to allows both orientation**. The gyroscope may not give you an accurate reading if the device orientation is not supported and the phone is rotated.
 
-![alt tag](https://s3.amazonaws.com/adsoptimal-3dx-assets/manual_upload/wiki/step+1+-+Check+VRPlayer+View.png)
+### Add a VR Ad
+ 
+1.    Import vrkit into your code
+<pre>
+import com.omnivirt.vrkit.*;
+<pre>
+	
+2.    Use the following code to load a VRAd
+<pre>
+VRAd  vrAd = new VRAd(ADSPACE_ID, ACTIVITY);
+vrAd.load();
+</pre>
+3.    Implement the OnVRAdInteractionListener interface and add the following functions
 
-Try to make the VRPlayer fill the full screen by setting the vertical constraint to zero.
-
-![alt tag](https://s3.amazonaws.com/adsoptimal-3dx-assets/manual_upload/wiki/step+2+-+Make+Player+fullscreen.png)
-
-Replace your OmniVirt content ID and insert "player.cardboard = Mode.ON;" inside the playerLoaded() method.
-
-![alt tag](https://s3.amazonaws.com/adsoptimal-3dx-assets/manual_upload/wiki/step+3+-+Turn+cardboard+mode+on.png)
-
-### Result
-
-![alt tag](https://s3.amazonaws.com/adsoptimal-3dx-assets/manual_upload/wiki/cardboard+output.png)
+<pre>
+void onAdStatusChanged(VRAd instance, AdState status);
+</pre>
+4.    Listen for the status of the ad to be "Ready" before showing your ad with
+<pre>
+vrAd.show(CARDBOARD_MODE);
+</pre>
+ 
+ 
+### Scan a QR Code
+ 
+1.    Add the following to your app's build.gradle
+<pre>
+compile 'com.google.android.gms:play-services:7.8.0'
+</pre>
+2.    Import vrkit into your code
+<pre>
+import com.omnivirt.vrkit.*;
+</pre>
+3.    Call the following function to open QR Code scanner
+<pre>
+QRReaderFragment.launchCardboardQRScanner(ACTIVITY);
+</pre>
 
 ### Example Apps
 
