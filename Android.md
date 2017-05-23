@@ -138,7 +138,7 @@ void onSwitched(String sceneName, Array history);
 1.    Import vrkit into your code
 <pre>
 import com.omnivirt.vrkit.*;
-<pre>
+</pre>
 	
 2.    Use the following code to load a VRAd
 <pre>
