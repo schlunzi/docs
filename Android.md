@@ -46,10 +46,10 @@ repositories {
 ### Add a Full Screen VRPlayer
  
 1. Add the following to AndroidManifest.xml
-<pre>
+```xml
 <activity android:name="com.omnivirt.vrkit.FullscreenVRPlayer"
     android:configChanges="orientation|screenSize"></activity>
-</pre>
+```
 
 2. Import vrkit into your code
 <pre>
@@ -58,12 +58,11 @@ import com.omnivirt.vrkit.*;
 3.    To open fullscreen player with adspace use the following code:
 <pre>
 FullscreenVRPlayer.launch(YOUR_ACTIVITY, CONTENT_ID, AUTOPLAY, CARDBOARD_MODE, ADSPACE_ID)
- </pre>
+</pre>
 4.    To open fullscreen player with no adspace use the following code instead:
 <pre>
 FullscreenVRPlayer.launch(YOUR_ACTIVITY, CONTENT_ID, AUTOPLAY, CARDBOARD_MODE);
 </pre>
- 
 5.    Implement interface OnVRPlayerInteractionListener in the caller activity and add the following functions:
 <pre>
 void onFragmentCreated();
@@ -90,13 +89,13 @@ void onSwitched(String sceneName, Array history);
 ### Embed a VRPlayer into an activity
  
 1.    Add this fragment to your activity layout xml file
-<pre>
+```xml
 <fragment
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:name="com.omnivirt.vrkit.VRPlayerFragment"
 	android:id="@+id/vrplayer_fragment" />
-</pre>
+```
  
 2.    Import vrkit into your code
 <pre>
@@ -171,11 +170,6 @@ import com.omnivirt.vrkit.*;
 QRReaderFragment.launchCardboardQRScanner(ACTIVITY);
 </pre>
 
-### Example Apps
-
-- [Swift VR Player / Monetization](https://github.com/OmniVirt/iOS-VR-Example/tree/master/Examples/Swift/VRKitExample)
-- [Objective-C VR Player / Monetization](https://github.com/OmniVirt/iOS-VR-Example/tree/master/Examples/Objective%20C/VRKitExample)
-- [Cardboard QR Code Reader](https://github.com/OmniVirt/iOS-VR-Example/tree/master/Examples/Scan%20QR%20Code/VRKitExample)
 
 # Questions?
 
